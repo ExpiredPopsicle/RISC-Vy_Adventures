@@ -1,0 +1,9 @@
+#!/bin/bash
+
+AS_COMMAND="$(dirname "$0")/../toolchain/riscv32-ilp32d--glibc--bleeding-edge-2022.08-1/bin/riscv32-linux-as"
+OBJCOPY_COMMAND="$(dirname "$0")/../toolchain/riscv32-ilp32d--glibc--bleeding-edge-2022.08-1/bin/riscv32-linux-objcopy"
+
+"$AS_COMMAND" $*
+"$OBJCOPY_COMMAND" -O binary a.out
+
+hd a.out

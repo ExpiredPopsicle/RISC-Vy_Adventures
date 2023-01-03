@@ -18,4 +18,5 @@ missing
 src/riscvy
 a.out
 toolchain
-
+*.bin
+/build

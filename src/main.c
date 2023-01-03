@@ -12,6 +12,10 @@ struct CPUState
     } registers;
 };
 
+void dump_cpu_state(const struct CPUState* state) {
+
+}
+
 #define DECODE_R_TYPE()                         \
     uint32_t funct7;                            \
     uint32_t funct3;                            \
@@ -100,12 +104,14 @@ void cpu_instruction_op_imm(
     rd     = (instruction & 0b00000000000000000000111110000000) >>  7;
     opcode = (instruction & 0b00000000000000000000000001111111) >>  0;
 
-    printf("instruction: %b\n", instruction);
-    printf("opcode:      %b\n", opcode);
-    printf("rd:          %b (%u)\n", rd, rd);
-    printf("funct3:      %b\n", funct3);
-    printf("rs1:         %b (%u)\n", rs1, rs1);
-    printf("imm:         %b (%u)\n", imm, imm);
+    printf("op-imm: %.32b\n", instruction);
+    printf("        └────┬─────┘└─┬─┘└┬┘└─┬─┘└──┬──┘\n");
+    printf("             │        │   │   │     └─── opcode: %.7b (%u)\n", opcode, opcode);
+    printf("             │        │   │   └───────────── rd: %.5b (%u)\n", rd, rd);
+    printf("             │        │   └───────────── funct3: %.3b (%u)\n", funct3, funct3);
+    printf("             │        └──────────────────── rs1: %.5b (%u)\n", rs1, rs1);
+    printf("             └───────────────────────────── imm: %.12b (%u)\n", imm, imm);
+
 
     uint32_t imm_value_signextended =
         sign_extend(imm, 12);
